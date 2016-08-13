@@ -1,14 +1,47 @@
-var api = "http://api.openweathermap.org/data/2.5/weather?q=";
-   var units = "&units=metric";
-   var appid = "&APPID=c4cf8fa33e2c8d68b7f5d533459d19d3"
+function getJSON(url, callback) {
+  //http://youmightnotneedjquery.com/#json
+  var request = new XMLHttpRequest();
+  request.open('GET', url, true);
 
-$.getJSON('http://ipinfo.io', function(data){
-  console.log(data);
-  $('#city').html(data.city + ': ');
+  request.onload = function() {
+    if (request.status >= 200 && request.status < 400) {
+      // Success!
+      callback(JSON.parse(request.responseText));
+    } else {
+      console.error("reached" + url + ", but it returned an error")
+    }
+  };
 
-  var weatherURI = api + encodeURIComponent(data.city) + units + appid;
+  request.onerror = function() {
+    console.error("connection error in request to" + url)
+  };
 
-  $.getJSON(weatherURI, function (weatherObj) {
-    $('#city').append(weatherObj.weather["0"].main + ', ' + weatherObj.main.temp + '&#176;C');
+  request.send();
+}
+
+function getCity(callback) {
+  var url = "https://freegeoip.net/json/";
+  getJSON(url, function(data) {
+    if (data.city) {
+      callback(data.city + ', ' + data.country_name);
+    } else {
+      console.debug('no city in IP, reverse geocoding...');
+      var baseUrl = "https://nominatim.openstreetmap.org/reverse?format=json"
+      var revUrl = baseUrl + '&lat=' + data.latitude + '&lon=' + data.longitude;
+
+      getJSON(revUrl, function(data) {
+        callback(data.address.state + ', ' + data.address.country);
+      })
+    }
+  });
+}
+
+getCity(function(city) {
+  var query = 'select item.condition from weather.forecast where woeid in (select woeid from geo.places(1) where text="' + city + '")';
+  var url = "https://query.yahooapis.com/v1/public/yql" + "?q=" + encodeURIComponent(query) + "&format=json";
+
+  getJSON(url, function(data) {
+    var condition = data.query.results.channel.item.condition;
+    console.log(condition.temp + 'F' + ', ' + condition.text + ' in ' + city + ' on ' + condition.date);
   })
 })
