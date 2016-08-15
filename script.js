@@ -54,20 +54,20 @@ function getWeather(callback) {
   })
 }
 
-getWeather(function(condition, location) {
-    if (condition && location) {
-      console.log(condition.temp + 'F' + ', ' + condition.text + ' in ' + location + ' on ' + condition.date);
-      var _location = document.querySelector('#location');
-      var date = document.querySelector('#date');
-      var temperature = document.querySelector('#temperature');
-      var text = document.querySelector('#text');
-
-      _location.innerHTML = location;
-      date.innerHTML = condition.date;
-      temperature.innerHTML = condition.temp + 'F';
-      text.innerHTML = condition.text;
-    } else {
-      var error = document.querySelector("#error");
-      error.innerHTML = "Sorry, we couldn't determine your location";
-    }
-})
+// getWeather(function(condition, location) {
+//     if (condition && location) {
+//       console.log(condition.temp + 'F' + ', ' + condition.text + ' in ' + location + ' on ' + condition.date);
+//       var _location = document.querySelector('#location');
+//       var date = document.querySelector('#date');
+//       var temperature = document.querySelector('#temperature');
+//       var text = document.querySelector('#text');
+//
+//       _location.innerHTML = location;
+//       date.innerHTML = condition.date;
+//       temperature.innerHTML = condition.temp + 'F';
+//       text.innerHTML = condition.text;
+//     } else {
+//       var error = document.querySelector("#error");
+//       error.innerHTML = "Sorry, we couldn't determine your location";
+//     }
+// })

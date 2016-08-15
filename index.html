@@ -3,14 +3,34 @@
   <head>
     <meta charset="utf-8">
     <title>Weather App</title>
-    <!-- <script   src="https://code.jquery.com/jquery-2.2.4.min.js"   integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="   crossorigin="anonymous"></script> -->
-    <script src="script.js" charset="utf-8"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700" type="text/css">
+    <!-- <link rel="stylesheet" href="https://code.getmdl.io/1.2.0/material.indigo-pink.min.css" /> -->
+    <link rel="stylesheet" href="style.css" media="screen" title="no title" charset="utf-8">
   </head>
   <body>
-    <p id="location"></p>
-    <p id="date"></p>
-    <p id="temperature"></p>
-    <p id="text"></p>
-    <p id="error"></p>
-  </body>
+    <div class="container">
+      <div class="headline">
+        <p class="location">Bangkok, Thailand</p>
+        <p class="date">Sun 09:00</p>
+      </div>
+      <div class="toggleBox">
+        <label class="mdl-switch mdl-js-switch mdl-js-ripple-effect toggleLabel" for="switch-1">
+          <input type="checkbox" id="switch-1" class="mdl-switch__input" checked>
+          <span class="mdl-switch__label"></span>
+        </label>
+      </div>
+      <div class="temperatureBox">
+        <p class="temperature">23&#176;</p>
+      </div>
+      <div class="iconBox">
+        <img src="assets/icons/sun-rain-snow.png" alt="weather icon" class="icon" />
+      </div>
+      <div class="conditionBox">
+        <p id="text">Cloudy</p>
+      </div>
+    </div>
+    <script defer src="https://code.getmdl.io/1.2.0/material.min.js"></script>
+    <script src="script.js" charset="utf-8"></script>
+    </body>
 </html>
