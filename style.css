@@ -7,33 +7,30 @@ html {
 }
 
 body {
-  min-height: 100%;
+  height: 100%;
   background-color: #000000;
-
   display: flex;
+  flex-direction: row;
   align-items: center;
   justify-content: space-around;
 }
 
 .container {
-  width: 500px;
-  height: 750px;
-
+  height: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: space-around;
-
+  flex: 0 0 100%;
+  max-width: 500px;
   font-family: 'Ubuntu Condensed', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   font-weight: 300;
   background-color: #e74c3c;
-
   border-radius: 15px;
 }
 
 .date {
   align-self: flex-end;
-  /* top | right | bottom | left */
   padding-right: 5%;
   font-size: 45px;
   color: #404040;
@@ -46,7 +43,6 @@ body {
   align-items: center;
   width: 100%;
   height: 100px;
-  /*background-color: yellow;*/
 }
 
 .temperature {
@@ -64,12 +60,11 @@ body {
 
 .icon {
   color: #ecf0f1;
-  font-size: 280px;
+  font-size: 70vw;
 }
 
 .cityBox {
   width: 100%;
-  /*background-color: orange;*/
 }
 
 .city {
@@ -87,4 +82,23 @@ hr {
    width: 85%;
    margin: 0 auto;
 }
+
+@media only screen and (min-width: 500px){
+  .icon {
+    font-size: 300px;
+  }
+}
+
+@media only screen and (min-height: 750px){
+  .container {
+    height: 750px;
+  }
+}
+
+@media only screen and (max-width: 500px){
+  @media only screen and (max-height: 750px){
+      .container {
+        border-radius: 0;
+    }
+  }
 }

@@ -129,4 +129,4 @@ function getIconName(code) {
 
 var icon = document.createElement("i");
 icon.className = getIconName('32');
-document.querySelector(".icon").appendChild(icon);
+document.querySelector("#icon").appendChild(icon);
