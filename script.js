@@ -87,7 +87,6 @@ function getLocation(callback) {
         callback(data.address.state + ', ' + data.address.country);
       });
     } else {
-      console.debug("couldn't get placename or coordinates found, say sorry");
       callback("");
     }
   });
@@ -101,7 +100,6 @@ function getWeather(callback) {
 
       getJSON(url, function(data) {
         var condition = data.query.results.channel.item.condition;
-        console.log(condition);
         callback(condition, location);
       });
     } else {
@@ -115,8 +113,6 @@ function populatePage() {
 
   getWeather(function(condition, location) {
       if (condition && location) {
-        console.log(condition.temp + 'F' + ', ' + condition.text + ' in ' + location + ' on ' + condition.date);
-
         var city = document.querySelector('#city');
         city.innerHTML = location.split(',')[0].toUpperCase();
 
