@@ -1,30 +1,14 @@
-Really simple [OpenweatherAPI](https://openweathermap.org/current#geo) integration.
+# Local Weather
 
-Can take a lot of code from React example.
+## Detects your location and displays current weather
 
-Just a big weather icon in the middle of the page + temperature.
+I chose the APIs I did because of their free SSL support. V1 used <http://ipinfo.io> and <http://openweathermap.com>.
+Now using <https://freegeoip.net> for location and <https://query.yahooapis.com> for weather.
+Also using <http://nominatim.openstreetmap.org> for reverse geocoding, in cases where the city is not detected from IP request.
 
-Below: Either "We believe you are in xxx. If you prefer you can enter your city here: <input>"
-Or: "We don't know where you are. Please enter a city here to see the current weather"
+Don't want to include jQuery just for `$.getJSON` and `$.ajax`, <http://youmightnotneedjquery.com/> to the rescue.
 
-http://ipinfo.io/json?callback=JSON_CALLBACK
+# Todo
 
-```javascript
-var api = "http://api.openweathermap.org/data/2.5/weather?q=";
-   var units = "&units=metric";
-   var appid = "&APPID=061f24cf3cde2f60644a8240302983f2"
-   var cb = "&callback=JSON_CALLBACK";
-   return $http.jsonp(api + city + units+ appid + cb);
-
-```
-```javascript
-if (navigator.geolocation) {
-  navigator.geolocation.getCurrentPosition(function(position) {
-    $("#data").html("latitude: " + position.coords.latitude + "<br>longitude: " + position.coords.longitude);
-  });
-}
-```
-
-Forget the whole geolocation navigator thing. This is about connecting 2 APIs together, ipinfo for city -> weather.
-
-Haha, uBlock origin blocks 3rd party requests, including the one to the ipinfo API.
+- inject error if no data via JS - delete everything and create on element that says sorry.
+- (maybe) background color conditional on weather - rainy dark blue, fog or cloudy grey, sunny yellow, snow bright blue.
