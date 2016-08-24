@@ -110,31 +110,30 @@ function getWeather(callback) {
 
 function populatePage() {
   var months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-
+  
   getWeather(function(condition, location) {
-      if (condition && location) {
-        var city = document.querySelector('#city');
-        city.innerHTML = location.split(',')[0].toUpperCase();
-
-        var date = document.querySelector('#date');
-        var currentDate = new Date;
-        date.innerHTML = months[currentDate.getUTCMonth()].substring(0, 3).toUpperCase() + ' ' + currentDate.getUTCDate();
-
-        var temperature = document.querySelector('#temperature');
-        temperature.innerHTML = Math.floor((parseInt(condition.temp) - 32)  * 5 / 9).toString() + "&#176;C";
-
-        var text = document.querySelector('#text');
-        text.innerHTML = condition.text.toUpperCase();
-
-        var icon = document.createElement("i");
-        icon.className = getIconName(condition.code);
-        document.querySelector("#icon").appendChild(icon);
-
-      } else {
-        // todo: inject error message
-      }
+    if (condition && location) {
+      var city = document.querySelector('#city');
+      city.innerHTML = location.split(',')[0].toUpperCase();
+      
+      var date = document.querySelector('#date');
+      var currentDate = new Date;
+      date.innerHTML = months[currentDate.getUTCMonth()].substring(0, 3).toUpperCase() + ' ' + currentDate.getUTCDate();
+      
+      var temperature = document.querySelector('#temperature');
+      temperature.innerHTML = Math.floor((parseInt(condition.temp) - 32)  * 5 / 9).toString() + "&#176;C";
+      
+      var text = document.querySelector('#text');
+      text.innerHTML = condition.text.toUpperCase();
+      
+      var icon = document.createElement("i");
+      icon.className = getIconName(condition.code);
+      document.querySelector("#icon").appendChild(icon);
+      
+    } else {
+      // todo: inject error message
+    }
   })
-
 }
 
 populatePage();
