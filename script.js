@@ -63,11 +63,13 @@ function getJSON(url, callback) {
       callback(JSON.parse(request.responseText));
     } else {
       console.error("reached " + url + ", but it returned an error")
+      injectErrorMessage();
     }
   };
 
   request.onerror = function() {
     console.error("connection error in request to " + url)
+    injectErrorMessage();
   };
 
   request.send();
@@ -108,30 +110,34 @@ function getWeather(callback) {
   })
 }
 
+function injectErrorMessage() {
+  var errorMessage = "Sorry, we couldn't load your local weather :("
+  document.querySelector('#date').innerHTML = errorMessage;
+}
+
 function populatePage() {
   var months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-  
+
   getWeather(function(condition, location) {
     if (condition && location) {
       var city = document.querySelector('#city');
       city.innerHTML = location.split(',')[0].toUpperCase();
-      
-      var date = document.querySelector('#date');
+
       var currentDate = new Date;
-      date.innerHTML = months[currentDate.getUTCMonth()].substring(0, 3).toUpperCase() + ' ' + currentDate.getUTCDate();
-      
+      document.querySelector('#date').innerHTML = months[currentDate.getUTCMonth()].substring(0, 3).toUpperCase() + ' ' + currentDate.getUTCDate();
+
       var temperature = document.querySelector('#temperature');
       temperature.innerHTML = Math.floor((parseInt(condition.temp) - 32)  * 5 / 9).toString() + "&#176;C";
-      
+
       var text = document.querySelector('#text');
       text.innerHTML = condition.text.toUpperCase();
-      
+
       var icon = document.createElement("i");
       icon.className = getIconName(condition.code);
       document.querySelector("#icon").appendChild(icon);
-      
+
     } else {
-      // todo: inject error message
+      injectErrorMessage();
     }
   })
 }
